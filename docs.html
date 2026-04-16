@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="scripts.js"></script>
+    <style>
+        .doc-container {
+            padding: 40px 5%;
+            max-width: 900px;
+            margin: 0 auto;
+            min-height: 70vh;
+        }
+
+        .doc-section {
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            margin-bottom: 15px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        p {
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        code {
+            background: var(--secondary);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            color: #e3e5e8;
+        }
+
+        .command-box {
+            background: var(--card);
+            border: 1px solid #232737;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .command-item {
+            margin-bottom: 15px;
+        }
+
+        .command-name {
+            color: var(--primary);
+            font-weight: bold;
+            font-family: monospace;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <div class="doc-container">
+        <h1>How it works</h1>
+
+        <div class="doc-section">
+            <p>AutoMod V2 is a tool focused on one thing: stopping compromised accounts from damaging your server. It uses three simple methods to detect suspect behavior.</p>
+        </div>
+
+        <div class="doc-section">
+            <h2>🛡️ Pattern Detection</h2>
+            <p>This module watches for users sending the exact same message across different channels in a short time. This is a common sign of a hijacked account or a basic bot.</p>
+            <p>If a user hits the limit you set, the bot will automatically apply the configured sanction (like a 24h timeout).</p>
+        </div>
+
+        <div class="doc-section">
+            <h2>🔗 Link Filtering</h2>
+            <p>Hacked accounts often post server invites to spread further. This module scans messages for Discord invite links.</p>
+            <p>You can choose to block <strong>all</strong> invites, or only those that contain suspect keywords (like "nitro", "gift", or "free") often used in scams.</p>
+        </div>
+
+        <div class="doc-section">
+            <h2>🖼️ Image Signatures</h2>
+            <p>Some scams use images to bypass text filters. The bot calculates a unique "signature" (SHA256) for every image sent.</p>
+            <p>If an image matches a known malicious signature in our database, it is removed instantly.</p>
+        </div>
+
+        <div class="doc-section">
+            <h2>⚙️ Commands</h2>
+            <div class="command-box">
+                <div class="command-item">
+                    <div class="command-name">/config panel</div>
+                    <p>Opens the interactive dashboard to manage status, sanctions, and immune roles/channels.</p>
+                </div>
+                <div class="command-item">
+                    <div class="command-name">/config getcode</div>
+                    <p>Generates a 15-character seed representing your current logic settings.</p>
+                </div>
+                <div class="command-item">
+                    <div class="command-name">/config setcode</div>
+                    <p>Applies a configuration instantly using a seed code from our online tool.</p>
+                </div>
+                <div class="command-item">
+                    <div class="command-name">/stats</div>
+                    <p>Shows how many times the bot has intervened on your server.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+</body>
+</html>

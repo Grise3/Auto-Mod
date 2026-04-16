@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="scripts.js"></script>
+    <style>
+        .doc-container {
+            padding: 40px 5%;
+            max-width: 800px;
+            margin: 0 auto;
+            min-height: 70vh;
+        }
+
+        .doc-section {
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        p {
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+
+        ul {
+            margin-left: 20px;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <div class="doc-container">
+        <h1>Privacy Policy</h1>
+
+        <div class="doc-section">
+            <h2>1. Data Collection</h2>
+            <p>Our bot is designed with privacy in mind. We minimize the data we store to only what is strictly necessary for the bot to function:</p>
+            <ul>
+                <li><strong>Server Configuration:</strong> We store Discord IDs for your server, log channels, and immune roles/channels to apply your custom settings.</li>
+                <li><strong>Statistics:</strong> We store numerical counters of interventions to provide the <code>/stats</code> command.</li>
+            </ul>
+        </div>
+
+        <div class="doc-section">
+            <h2>2. Real-time Processing</h2>
+            <p>To protect your server, the bot processes message content and image attachments in real-time. <strong>This data is volatile:</strong></p>
+            <ul>
+                <li>Message hashes used for Anti-Spam are stored in temporary memory (RAM) and are cleared regularly.</li>
+                <li>Image attachments are downloaded temporarily to compute a SHA256 signature and are not saved on our disks.</li>
+                <li>Your content is never sold or shared with any third party. It is exclusively used locally by the bot's logic.</li>
+            </ul>
+        </div>
+
+        <div class="doc-section">
+            <h2>3. Third Parties</h2>
+            <p>The only third party involved is <a href="https://discord.com/company" target="_blank">Discord Inc.</a>, as the bot operates on their platform.</p>
+        </div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+</body>
+</html>

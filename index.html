@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoMod V2</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="scripts.js"></script>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <header class="hero">
+        <h1>Protect your community from hacked accounts</h1>
+        <p>A discord bot specially designed to detect and stop hacked discord accounts. Whether sending images or sending invitation links for a server, It will detect and stop them.</p>
+        <div class="hero-btns">
+            <a href="invite.html" class="btn-primary">Add to Discord</a>
+            <a href="configurator.html" class="btn-secondary">Online Config</a>
+        </div>
+    </header>
+
+    <section class="features">
+        <div class="feature-card">
+            <i class="fas fa-comments"></i>
+            <h3>Behavioral Analysis</h3>
+            <p>Monitors users for identical messages sent in a short timeframe. It identifies the "copy-paste" patterns typical of compromised accounts and wipes the spam.</p>
+        </div>
+        <div class="feature-card">
+            <i class="fas fa-link"></i>
+            <h3>Invite Links Interception</h3>
+            <p>Scans for Discord invitations paired with specific suspect keywords. Can also be set to block every invite link entirely.</p>
+        </div>
+        <div class="feature-card">
+            <i class="fas fa-hashtag"></i>
+            <h3>Hash Verification</h3>
+            <p>Calculates the SHA256 signature of every image attachment. It compares these hashes against a blacklist to auto-delete known malicious media.</p>
+        </div>
+        <div class="feature-card">
+            <i class="fas fa-key"></i>
+            <h3>Stateless Seeds</h3>
+            <p>Encodes your entire protection logic, priorities, and thresholds into a single 15-character passkey for deployment or easy backups.</p>
+        </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+</body>
+</html>

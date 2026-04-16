@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="scripts.js"></script>
+    <style>
+        .redirect-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 5%;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+            min-height: 60vh;
+        }
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-left-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        .timer {
+            font-weight: bold;
+            color: var(--primary);
+        }
+    </style>
+    <meta http-equiv="refresh" content="10;url=https://discord.com/oauth2/authorize?client_id=1493974219665445055&permissions=8&integration_type=0&scope=bot">
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <div class="redirect-container">
+        <div class="spinner"></div>
+        <h1>One moment...</h1>
+        <p>You are being redirected to Discord in <span id="countdown" class="timer">10</span> seconds.</p>
+
+        <div class="warning-box" style="margin-top: 40px;">
+            ⚠️ <strong>Safety Warning:</strong> Phishing is common on Discord. Always verify that you are on the official <strong>discord.com</strong> domain before entering any credentials or authorizing applications.
+        </div>
+
+        <p style="margin-top: 20px; font-size: 0.9rem; color: var(--text-muted);">
+            If you are not redirected, <a href="https://discord.com/oauth2/authorize?client_id=1493974219665445055&permissions=8&integration_type=0&scope=bot" style="color: var(--primary);">click here</a>.
+        </p>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script>
+        let seconds = 10;
+        const countdownEl = document.getElementById('countdown');
+        const interval = setInterval(() => {
+            seconds--;
+            if(countdownEl) countdownEl.innerText = seconds;
+            if (seconds <= 0) clearInterval(interval);
+        }, 1000);
+    </script>
+</body>
+</html>

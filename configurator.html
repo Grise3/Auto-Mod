@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurator</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="scripts.js"></script>
+    <style>
+        .config-container {
+            padding: 40px 5%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .config-box {
+            background: var(--card);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border: 1px solid #232737;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .checkbox-item input {
+            width: auto;
+            cursor: pointer;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            background: var(--bg);
+            border: 1px solid #2b2d31;
+            color: white;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        .warning-text {
+            color: #f04747;
+            font-size: 0.8rem;
+            margin-top: 5px;
+            font-style: italic;
+            display: none;
+        }
+
+        .info-box {
+            background: var(--card);
+            border: 1px solid var(--primary);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+        }
+
+        .code-display {
+            background: var(--card);
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px dashed var(--primary);
+            margin-top: 30px;
+            position: sticky;
+            bottom: 20px;
+            z-index: 10;
+            box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        #final-code {
+            font-size: clamp(1.2rem, 5vw, 2rem);
+            font-family: monospace;
+            color: var(--primary);
+            font-weight: 800;
+            word-break: break-all;
+            margin: 15px 0;
+            display: block;
+        }
+
+        h3 {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-copy,
+        .btn-main {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: 0.2s;
+        }
+
+        .btn-copy:hover,
+        .btn-main:hover {
+            opacity: 0.8;
+        }
+
+        .btn-copy.copied {
+            background: #43b581;
+        }
+
+        #start-page {
+            text-align: center;
+            padding-top: 10vh;
+        }
+
+        .choice-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .choice-card {
+            background: var(--card);
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid #232737;
+            flex: 1 1 300px;
+            max-width: 400px;
+        }
+
+        #config-interface {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <div class="config-container">
+        <div id="start-page">
+            <h1>Configuration Wizard</h1>
+            <p class="subtitle">How would you like to begin?</p>
+            <div class="choice-container">
+                <div class="choice-card">
+                    <h2>Fresh Start</h2>
+                    <p>Configure every setting manually with our recommended defaults.</p>
+                    <button class="btn-main" onclick="showInterface()">Start from scratch</button>
+                </div>
+                <div class="choice-card">
+                    <h2>Import Seed</h2>
+                    <p>Load an existing configuration using a 15-character passkey.</p>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <input type="text" id="import-code" placeholder="Paste code (e.g. B000...)" maxlength="15">
+                        <button class="btn-main" onclick="importAndShow()">Load Configuration</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="config-interface">
+            <h1>Online Configurator</h1>
+            <div class="info-box">
+                💡 <strong>Note:</strong> Immune roles, immune channels, and log channels must be set directly on your server using the <code>/config panel</code> command.
+            </div>
+
+            <div class="config-box">
+                <h3>🛡️ Anti-Spam</h3>
+                <div class="input-group">
+                    <label>Status</label>
+                    <select id="spam-enabled"><option value="1">Enabled</option><option value="0">Disabled</option></select>
+                </div>
+                <div class="input-group">
+                    <label>Action</label>
+                    <select id="spam-action" onchange="checkWarning('spam')">
+                        <option value="0" selected>Mute</option><option value="1">Kick</option><option value="2">Ban</option><option value="3">Delete Only</option>
+                    </select>
+                    <div id="spam-warning" class="warning-text">⚠️ Not recommended: Spammers will continue until manual intervention.</div>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div class="input-group"><label>Max identical messages</label><input type="number" id="spam-max" value="3" min="2" max="63"></div>
+                    <div class="input-group"><label>Cooldown (seconds)</label><input type="number" id="spam-cooldown" value="5" min="1" max="1023"></div>
+                </div>
+                <div class="input-group"><label>Mute time (minutes)</label><input type="number" id="spam-mute" value="1440" min="0" max="4095"></div>
+            </div>
+
+            <div class="config-box">
+                <h3>🔗 Anti-Link</h3>
+                <div class="input-group">
+                    <label>Status</label>
+                    <select id="link-enabled"><option value="1">Enabled</option><option value="0">Disabled</option></select>
+                </div>
+                <div class="input-group">
+                    <label>Filtering Mode</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-item"><input type="checkbox" id="link-block-all" checked> Block All Invites</label>
+                        <label class="checkbox-item"><input type="checkbox" id="link-use-keywords" checked> Use Keywords</label>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Action</label>
+                    <select id="link-action" onchange="checkWarning('link')">
+                        <option value="0" selected>Mute</option><option value="1">Kick</option><option value="2">Ban</option><option value="3">Delete Only</option>
+                    </select>
+                    <div id="link-warning" class="warning-text">⚠️ Not recommended: Accounts will keep posting until muted/banned.</div>
+                </div>
+                <div class="input-group"><label>Mute time (minutes)</label><input type="number" id="link-mute" value="1440" min="0" max="4095"></div>
+            </div>
+
+            <div class="config-box">
+                <h3>🖼️ Image Detection</h3>
+                <div class="input-group">
+                    <label>Status</label>
+                    <select id="image-enabled"><option value="1">Enabled</option><option value="0">Disabled</option></select>
+                </div>
+                <div class="input-group">
+                    <label>Action</label>
+                    <select id="image-action" onchange="checkWarning('image')">
+                        <option value="0" selected>Mute</option><option value="1">Kick</option><option value="2">Ban</option><option value="3">Delete Only</option>
+                    </select>
+                    <div id="image-warning" class="warning-text">⚠️ Not recommended for malicious media.</div>
+                </div>
+                <div class="input-group"><label>Mute time (minutes)</label><input type="number" id="image-mute" value="1440" min="0" max="4095"></div>
+            </div>
+
+            <div class="code-display">
+                <p>Your generated seed code:</p>
+                <strong id="final-code">B00000000000000</strong>
+                <button class="btn-copy" onclick="copyCode()" id="copy-btn">Copy Code</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script>
+        const ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        function toBase36(n) {
+            if (n === BigInt(0)) return "00000000000000";
+            let res = "";
+            while (n > 0) { res = ALPHABET[Number(n % BigInt(36))] + res; n = n / BigInt(36); }
+            return res.padStart(14, '0');
+        }
+        function fromBase36(s) {
+            let n = BigInt(0);
+            for (let char of s) { n = n * BigInt(36) + BigInt(ALPHABET.indexOf(char)); }
+            return n;
+        }
+        function showInterface() {
+            document.getElementById('start-page').style.display = 'none';
+            document.getElementById('config-interface').style.display = 'block';
+            update();
+        }
+        function importAndShow() {
+            const code = document.getElementById('import-code').value.trim();
+            if (decode(code)) { showInterface(); } else { alert("Invalid seed code format."); }
+        }
+        function decode(code) {
+            code = code.toUpperCase();
+            if (!code.startsWith('B')) return false;
+            try {
+                const val = fromBase36(code.substring(1));
+                document.getElementById('spam-enabled').value = Number((val >> BigInt(6)) & BigInt(1));
+                document.getElementById('spam-action').value = Number((val >> BigInt(7)) & BigInt(3));
+                document.getElementById('spam-max').value = Number((val >> BigInt(9)) & BigInt(0x3F));
+                document.getElementById('spam-cooldown').value = Number((val >> BigInt(15)) & BigInt(0x3FF));
+                document.getElementById('spam-mute').value = Number((val >> BigInt(25)) & BigInt(0xFFF));
+                document.getElementById('link-enabled').value = Number((val >> BigInt(37)) & BigInt(1));
+                document.getElementById('link-block-all').checked = Number((val >> BigInt(38)) & BigInt(1)) === 1;
+                document.getElementById('link-use-keywords').checked = Number((val >> BigInt(39)) & BigInt(1)) === 1;
+                document.getElementById('link-action').value = Number((val >> BigInt(40)) & BigInt(3));
+                document.getElementById('link-mute').value = Number((val >> BigInt(42)) & BigInt(0xFFF));
+                document.getElementById('image-enabled').value = Number((val >> BigInt(54)) & BigInt(1));
+                document.getElementById('image-action').value = Number((val >> BigInt(55)) & BigInt(3));
+                document.getElementById('image-mute').value = Number((val >> BigInt(57)) & BigInt(0xFFF));
+                checkWarning('spam'); checkWarning('link'); checkWarning('image');
+                return true;
+            } catch (e) { return false; }
+        }
+        function checkWarning(type) {
+            const action = document.getElementById(type + '-action').value;
+            const warning = document.getElementById(type + '-warning');
+            warning.style.display = (action == "3") ? "block" : "none";
+        }
+        async function copyCode() {
+            const code = document.getElementById('final-code').innerText;
+            const btn = document.getElementById('copy-btn');
+            try {
+                await navigator.clipboard.writeText(code);
+                btn.innerText = "Copied!"; btn.classList.add('copied');
+                setTimeout(() => { btn.innerText = "Copy Code"; btn.classList.remove('copied'); }, 2000);
+            } catch (err) {}
+        }
+        function update() {
+            let val = BigInt(0);
+            val |= BigInt(0) << BigInt(0); val |= BigInt(1) << BigInt(2); val |= BigInt(2) << BigInt(4);
+            val |= BigInt(document.getElementById('spam-enabled').value) << BigInt(6);
+            val |= BigInt(document.getElementById('spam-action').value) << BigInt(7);
+            val |= BigInt(document.getElementById('spam-max').value) << BigInt(9);
+            val |= BigInt(document.getElementById('spam-cooldown').value) << BigInt(15);
+            val |= BigInt(document.getElementById('spam-mute').value) << BigInt(25);
+            val |= BigInt(document.getElementById('link-enabled').value) << BigInt(37);
+            val |= BigInt(document.getElementById('link-block-all').checked ? 1 : 0) << BigInt(38);
+            val |= BigInt(document.getElementById('link-use-keywords').checked ? 1 : 0) << BigInt(39);
+            val |= BigInt(document.getElementById('link-action').value) << BigInt(40);
+            val |= BigInt(document.getElementById('link-mute').value) << BigInt(42);
+            val |= BigInt(document.getElementById('image-enabled').value) << BigInt(54);
+            val |= BigInt(document.getElementById('image-action').value) << BigInt(55);
+            val |= BigInt(document.getElementById('image-mute').value) << BigInt(57);
+            document.getElementById('final-code').innerText = "B" + toBase36(val);
+        }
+        const urlParams = new URLSearchParams(window.location.search);
+        const seedParam = urlParams.get('seed');
+        if (seedParam && decode(seedParam)) showInterface();
+        document.querySelectorAll('input, select').forEach(el => { el.addEventListener('input', update); el.addEventListener('change', update); });
+    </script>
+</body>
+</html>
