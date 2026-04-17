@@ -89,9 +89,11 @@
         </div>
 
         <div class="doc-section">
-            <h2>🖼️ Image Signatures</h2>
-            <p>Some scams use images to bypass text filters. The bot calculates a unique "signature" (SHA256) for every image sent.</p>
-            <p>If an image matches a known malicious signature in our database, it is removed instantly.</p>
+            <h2>🖼️ Image Similarity Detection</h2>
+            <p>Some scams use images to bypass text filters. The bot uses a two-step detection system:</p>
+            <p><strong>1. Perceptual Hash (pHash):</strong> A fast fingerprint that detects visually identical images even if resized or compressed.</p>
+            <p><strong>2. SSIM (Structural Similarity):</strong> Measures perceptual differences by comparing luminance, contrast, and structural patterns.</p>
+            <p>You can configure the similarity threshold per server.</p>
         </div>
 
         <div class="doc-section">

@@ -233,6 +233,7 @@
 
             <div class="config-box">
                 <h3>🖼️ Image Detection</h3>
+                <p style="color: var(--text-muted); margin-bottom: 15px;">Uses perceptual hashing (pHash) and SSIM to detect similar images.</p>
                 <div class="input-group">
                     <label>Status</label>
                     <select id="image-enabled"><option value="1">Enabled</option><option value="0">Disabled</option></select>
@@ -244,7 +245,10 @@
                     </select>
                     <div id="image-warning" class="warning-text">⚠️ Not recommended for malicious media.</div>
                 </div>
-                <div class="input-group"><label>Mute time (minutes)</label><input type="number" id="image-mute" value="1440" min="0" max="4095"></div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div class="input-group"><label>Similarity Threshold (%)</label><input type="number" id="image-threshold" value="50.01" min="0" max="100" step="0.01"></div>
+                    <div class="input-group"><label>Mute time (minutes)</label><input type="number" id="image-mute" value="1440" min="0" max="4095"></div>
+                </div>
             </div>
 
             <div class="code-display">
@@ -297,6 +301,7 @@
                 document.getElementById('image-enabled').value = Number((val >> BigInt(54)) & BigInt(1));
                 document.getElementById('image-action').value = Number((val >> BigInt(55)) & BigInt(3));
                 document.getElementById('image-mute').value = Number((val >> BigInt(57)) & BigInt(0xFFF));
+                document.getElementById('image-threshold').value = (Number((val >> BigInt(69)) & BigInt(0x3FFF)) / 100).toFixed(2);
                 checkWarning('spam'); checkWarning('link'); checkWarning('image');
                 return true;
             } catch (e) { return false; }
@@ -331,6 +336,7 @@
             val |= BigInt(document.getElementById('image-enabled').value) << BigInt(54);
             val |= BigInt(document.getElementById('image-action').value) << BigInt(55);
             val |= BigInt(document.getElementById('image-mute').value) << BigInt(57);
+            val |= BigInt(Math.round(parseFloat(document.getElementById('image-threshold').value) * 100)) << BigInt(69);
             document.getElementById('final-code').innerText = "B" + toBase36(val);
         }
         const urlParams = new URLSearchParams(window.location.search);
