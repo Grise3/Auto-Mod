@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="scripts.js"></script>
+    <style>
+        .about-container {
+            padding: 80px 5% 40px;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            min-height: 70vh;
+        }
+
+        .creators {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            margin: 40px 0;
+        }
+
+        .creator-card {
+            background: var(--card);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid #232737;
+            flex: 1 1 250px;
+            max-width: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .creator-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid var(--primary);
+            margin-bottom: 15px;
+            object-fit: cover;
+        }
+
+        .creator-card h2 {
+            font-size: 1.5rem;
+        }
+
+        .creator-card h2 a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .creator-card h2 a:hover {
+            color: var(--text);
+            text-shadow: 0 0 10px rgba(35, 165, 89, 0.5);
+        }
+
+        .creator-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .contribute-box {
+            background: var(--card);
+            border: 1px dashed var(--primary);
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: 60px;
+            text-align: left;
+        }
+
+        .contribute-box h3 {
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .contribute-box p {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .contact-list {
+            list-style: none;
+            color: var(--text-muted);
+        }
+
+        .contact-list li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-list i {
+            color: var(--primary);
+            width: 20px;
+            text-align: center;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <div class="about-container">
+        <h1>Meet the creators</h1>
+        <p class="subtitle">AutoMod V2 is a project built with care to keep the Discord community safer.</p>
+
+        <div class="creators">
+            <div class="creator-card">
+                <img src="https://cdn.discordapp.com/avatars/1078250579219992596/7d713c787599ab280b0402ea53290a88.png?size=1024" alt="Grise" class="creator-avatar">
+                <h2><a href="https://discord.com/users/1078250579219992596" target="_blank">Grise</a></h2>
+            </div>
+            <div class="creator-card">
+                <img src="https://cdn.discordapp.com/avatars/1304075937444397197/968567e1fd7b075c49c16e52ea3d73fb.png?size=1024" alt="Kermit" class="creator-avatar">
+                <h2><a href="https://discord.com/users/1304075937444397197" target="_blank">Kermit</a></h2>
+            </div>
+        </div>
+
+        <div class="contribute-box">
+            <h3>Feedback & Contributions</h3>
+            <p>We are always looking to improve the bot. If you have any of the following, please submit them directly on our GitHub Issues page:</p>
+            <ul class="contact-list">
+                <li><i class="fas fa-lightbulb"></i> Feature requests or ideas</li>
+                <li><i class="fas fa-bug"></i> Bug reports</li>
+                <li><i class="fas fa-image"></i> New malicious image patterns to detect</li>
+                <li><i class="fas fa-database"></i> Suspect keywords we missed</li>
+            </ul>
+            <p style="margin-top: 20px; font-size: 0.9rem;">
+                <a href="https://github.com/Grise3/Auto-Mod/issues/new" target="_blank" style="color: var(--primary); text-decoration: none;">Submit an issue on GitHub <i class="fas fa-external-link-alt"></i></a>
+            </p>
+        </div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+</body>
+</html>
