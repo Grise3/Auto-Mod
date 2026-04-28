@@ -73,8 +73,8 @@
             <h2>2. Real-time Processing</h2>
             <p>To protect your server, the bot processes message content and image attachments in real-time. <strong>This data is volatile:</strong></p>
             <ul>
-                <li>Message hashes used for Anti-Spam are stored in temporary memory (RAM) and are cleared regularly.</li>
-                <li>Image attachments are downloaded temporarily to compute a SHA256 signature and are not saved on our disks.</li>
+                <li>Message hashes used for Anti-Spam are stored temporarily and cleared regularly.</li>
+                <li>Image attachments are downloaded temporarily to compute perceptual hashes (pHash) and similarity scores (SSIM) and are not saved on our disks.</li>
                 <li>Your content is never sold or shared with any third party. It is exclusively used locally by the bot's logic.</li>
             </ul>
         </div>
