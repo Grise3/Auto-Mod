@@ -73,27 +73,30 @@
         <h1>How it works</h1>
 
         <div class="doc-section">
-            <p>AutoMod V2 is a tool focused on one thing: stopping compromised accounts from damaging your server. It uses three simple methods to detect suspect behavior.</p>
+            <p>AutoMod V2 is a tool focused on one thing: stopping compromised accounts from damaging your server. It uses several methods to detect suspect behavior.</p>
         </div>
 
         <div class="doc-section">
-            <h2>🛡️ Pattern Detection</h2>
+            <h2>🛡️ Pattern Detection (Anti-Spam)</h2>
             <p>This module watches for users sending the exact same message across different channels in a short time. This is a common sign of a hijacked account or a basic bot.</p>
             <p>If a user hits the limit you set, the bot will automatically apply the configured sanction (like a 24h timeout).</p>
         </div>
 
         <div class="doc-section">
-            <h2>🔗 Link Filtering</h2>
+            <h2>🪤 Trap Channels</h2>
+            <p>Designate specific channels as "trap channels". These are highly effective for identifying compromised accounts. Any user (unless they have an immune role) who posts a message in a configured trap channel will be immediately sanctioned according to your settings.</p>
+            <p>This helps to quickly isolate and deal with malicious actors who often try to post spam or scams in any available channel.</p>
+        </div>
+
+        <div class="doc-section">
+            <h2>🔗 Link Filtering (Anti-Link)</h2>
             <p>Hacked accounts often post server invites to spread further. This module scans messages for Discord invite links.</p>
             <p>You can choose to block <strong>all</strong> invites, or only those that contain suspect keywords (like "nitro", "gift", or "free") often used in scams.</p>
         </div>
 
         <div class="doc-section">
-            <h2>🖼️ Image Similarity Detection</h2>
-            <p>Some scams use images to bypass text filters. The bot uses a two-step detection system:</p>
-            <p><strong>1. Perceptual Hash (pHash):</strong> A fast fingerprint that detects visually identical images even if resized or compressed.</p>
-            <p><strong>2. SSIM (Structural Similarity):</strong> Measures perceptual differences by comparing luminance, contrast, and structural patterns.</p>
-            <p>You can configure the similarity threshold per server.</p>
+            <h2>🖼️ Advanced Image Detection</h2>
+            <p>To combat scams that use images to bypass text filters, AutoMod V2 employs an EfficientNet deep learning model. This model analyzes images to categorize their content and detect known malicious patterns.</p>
         </div>
 
         <div class="doc-section">
@@ -101,7 +104,7 @@
             <div class="command-box">
                 <div class="command-item">
                     <div class="command-name">/config panel</div>
-                    <p>Opens the interactive dashboard to manage status, sanctions, and immune roles/channels.</p>
+                    <p>Opens the interactive dashboard to manage status, sanctions, and immune roles/channels for all modules, including Trap Channels and Image Detection settings.</p>
                 </div>
                 <div class="command-item">
                     <div class="command-name">/config getcode</div>
